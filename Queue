@@ -40,9 +40,80 @@ public:
             // (head) 1 <-> 2 <-> 3 (tail) <-> NULL
             tail->next = x; // moves the pointer one step forward
             x->prev = tail;
-            tail = x; // makes the tail points to x
+             void displayQueue()
+    {
+        cout << "Here are the items in the list:\n";
+        node* i = head;
+        while (i != NULL)
+        {
+            cout << i->data << endl;
+            i = i->next; // moves the counter one step ahead   tail = x; // makes the tail points to x
         }
         counter++;
+    }
+     void displayQueue(){
+        cout << "Here are the items in the list:\n";
+        node* i = head;
+        while (i != NULL)
+        {
+            cout << i->data << endl;
+            i = i->next; // moves the counter one step ahead
+            }
+     }
+     void deleteAtPosition(int index)
+    {
+        if (index == 1) // detele the first item (head)
+        {
+            deleteHead();
+        }
+        else // traverse through the list to the target index
+        {
+            node* target = head;
+            node* previous = head;
+            for (int i = 1; i < index; i++)
+            {
+                previous = target;
+                target = target->next;
+            }
+            // (head) 1 <-> 2 <-> 3 (tail)
+            previous->next = target->next;
+            target->next->prev = previous;
+            target = NULL;
+            counter--;
+        }
+    }
+        void enqueue(int value) {
+      node* x = new node(); // the new node
+        x->data = value;
+        x->next = NULL;
+        x->prev = NULL;
+      if(isEmpty()){
+        head = tail = x;
+      }
+      else{
+        x->prev = tail;
+        tail->next = x;
+        tail = x;
+      }
+      counter++;
+    }
+    void dequeue(){
+      node* x = head;
+      if(isEmpty()){
+        return;
+      }
+      head = head->next;
+      delete x;
+      counter--;
+    }
+    int getSize(){
+      return counter;
+    }
+    bool isEmpty(){
+      if(head == NULL){
+        return true;
+      }
+        return false;
     }
 }
 
