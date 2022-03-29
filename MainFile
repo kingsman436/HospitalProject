@@ -1,7 +1,22 @@
 #include <iostream>
 using namespace std;
+struct queue
+{
+    int data;
+    queue* next;
+    queue* prev;
+};
+class DoublyIntegerLinkedList
+{
+private:
+    node* head; // the head of the list
+    node* tail; // the end of the list 
+    int counter;
+}
 
 int main(){
+
+
 
 return 0;
 }
