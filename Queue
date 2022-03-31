@@ -1,11 +1,13 @@
 #include <iostream>
+#include<string>
 using namespace std;
-struct queue
+struct node
 {
-    int data;
-    queue* next;
-    queue* prev;
+    string data;
+    node* next;
+    node* prev;
 };
+enum MENU { Insert = 1, Delete = 2, Move = 3, Exit = 4 };
 class DoublyIntegerLinkedList
 {
 private:
@@ -22,7 +24,7 @@ public:
     {
         cout << "The current nodes in the list is: " << counter << endl;
     }
-     void createNode(int value)
+    void createNode(string value)
     {
         node* x = new node(); // the new node
         x->data = value;
@@ -40,27 +42,45 @@ public:
             // (head) 1 <-> 2 <-> 3 (tail) <-> NULL
             tail->next = x; // moves the pointer one step forward
             x->prev = tail;
-             void displayQueue()
+            tail = x; // makes the tail points to x
+        }
+        counter++;
+    }
+    void displayQueue()
     {
         cout << "Here are the items in the list:\n";
         node* i = head;
         while (i != NULL)
         {
             cout << i->data << endl;
-            i = i->next; // moves the counter one step ahead   tail = x; // makes the tail points to x
+            i = i->next; // moves the counter one step ahead
         }
-        counter++;
     }
-     void displayQueue(){
-        cout << "Here are the items in the list:\n";
-        node* i = head;
+    void displayInReverseOrder()
+    {
+        cout << "Here are the items in the list in reverse:\n";
+        node* i = tail;
         while (i != NULL)
         {
             cout << i->data << endl;
-            i = i->next; // moves the counter one step ahead
-            }
-     }
-     void deleteAtPosition(int index)
+            i = i->prev; // moves the counter one step ahead
+        }
+    }
+    void deleteHead()
+    {
+        if (head != NULL)
+        {
+            node* temp = head;
+            head = head->next;
+            temp = NULL;
+            counter--;
+        }
+        else
+        {
+            cout << "The list is empty\n";
+        }
+    }
+    void deleteAtPosition(int index)
     {
         if (index == 1) // detele the first item (head)
         {
@@ -82,55 +102,72 @@ public:
             counter--;
         }
     }
-        void enqueue(int value) {
-      node* x = new node(); // the new node
+    void enqueue(string value) {
+        node* x = new node(); // the new node
         x->data = value;
         x->next = NULL;
         x->prev = NULL;
-      if(isEmpty()){
-        head = tail = x;
-      }
-      else{
-        x->prev = tail;
-        tail->next = x;
-        tail = x;
-      }
-      counter++;
+        if (isEmpty()) {
+            head = tail = x;
+        }
+        else {
+            x->prev = tail;
+            tail->next = x;
+            tail = x;
+        }
+        counter++;
     }
-    void dequeue(){
-      node* x = head;
-      if(isEmpty()){
-        return;
-      }
-      head = head->next;
-      delete x;
-      counter--;
+    void dequeue() {
+        node* x = head;
+        if (isEmpty()) {
+            return;
+        }
+        head = head->next;
+        delete x;
+        counter--;
     }
-    int getSize(){
-      return counter;
+    int getSize() {
+        return counter;
     }
-    bool isEmpty(){
-      if(head == NULL){
-        return true;
-      }
+    bool isEmpty() {
+        if (head == NULL) {
+            return true;
+        }
         return false;
     }
-}
-
-int main(){
+};
+int main() {
+    int choice = 1;
+    bool keep;
+    string name;
     DoublyIntegerLinkedList list;
-    list.enqueue(4);
-    list.enqueue(5);
-    list.enqueue(6);
-    list.enqueue(7);
-    list.enqueue(8);
-    list.enqueue(9);
-    list.displayInReverseOrder();
+    list.enqueue("John");
+    list.enqueue("Mary");
+    list.enqueue("Joseph");
+    list.enqueue("Justin");
+    list.enqueue("Tanisha");
     list.displayQueue();
-   cout << "Size: " << list.getSize() << endl;
-    list.dequeue();
-    list.displayQueue();
-    cout << "Size: " << list.getSize() << endl;
-
-return 0;
+    while (choice != 4) {
+        cout << "What is your would you like to do? " << endl;
+        cout << "1.Add Patient 2.Delete Patient 3.Move Patient 4.Stop Program" << endl;
+        cin >> choice;
+        switch (choice) {
+        case Insert:
+            cout << "What is patients name?" << endl;
+            cin >> name;
+            list.enqueue(name);
+            list.displayQueue();
+            break;
+        case Delete:
+            cout << "Removing next Patient" << endl;
+            list.dequeue();
+            list.displayQueue();
+            break;
+        case Move:
+            break;
+        default:
+            choice = 4;
+            break;
+        }
+    }
 }
