@@ -118,8 +118,19 @@ public:
 }
 
 int main(){
-
-
+    DoublyIntegerLinkedList list;
+    list.enqueue(4);
+    list.enqueue(5);
+    list.enqueue(6);
+    list.enqueue(7);
+    list.enqueue(8);
+    list.enqueue(9);
+    list.displayInReverseOrder();
+    list.displayQueue();
+   cout << "Size: " << list.getSize() << endl;
+    list.dequeue();
+    list.displayQueue();
+    cout << "Size: " << list.getSize() << endl;
 
 return 0;
 }
