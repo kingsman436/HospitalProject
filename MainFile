@@ -1,0 +1,56 @@
+#include <iostream>
+#include<string>
+using namespace std;
+
+enum MENU { Insert = 1, Delete = 2, Display = 3, Doctor = 4,Exit = 5 };
+
+int main() {
+    int choice = 1;
+    bool keep;
+    string name;
+    Stack* head = NULL;
+    SinglyIntegerLinkedList l;
+    DoublyIntegerLinkedList list;
+    list.enqueue("John");
+    list.enqueue("Mary");
+    list.enqueue("Joseph");
+    list.enqueue("Justin");
+    list.enqueue("Tanisha");
+    list.displayQueue();
+    l.push("Dr.Tate");
+    l.push("Dr.Lopez");
+    l.push("Dr.Miller");
+    l.push("Dr.Smith");
+    l.push("Dr.Johnson");
+    l.push("Dr.Washington");
+    l.push("Dr.Knight");
+    l.push("Dr.Smart");
+    l.push("Dr.Carrol");
+    l.push("Dr.Hayes");
+    l.push("Dr.Smith");
+        while (choice != 5) {
+        cout << "What is your would you like to do? " << endl;
+        cout << "1.Add Patient 2.Delete Patient 3.Display Patient Order 4.Show Doctor list 5.Exit Program" << endl;
+        cin >> choice;
+        switch (choice) {
+        case Insert:
+            cout << "What is patients name?" << endl;
+            cin >> name;
+            list.enqueue(name);
+            break;
+        case Delete:
+            list.front();
+            list.dequeue();
+            l.pop();
+            break;
+        case Display:
+            list.displayQueue();
+            break;
+        case Doctor:
+            l.display();
+            break;
+        default:
+            choice = 5;
+        }
+    }
+}
