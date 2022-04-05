@@ -1,0 +1,124 @@
+#include <iostream>
+#include<string>
+using namespace std;
+
+struct Stack {
+    string doctorname;
+    Stack* skip;
+};
+
+class SinglyIntegerLinkedList
+{
+    Stack* head;
+public:
+    SinglyIntegerLinkedList()
+    {
+        head = NULL;
+    }
+    void insert(string val)
+    {
+        Stack* new_node = new Stack;
+        new_node->doctorname = val;
+        new_node->skip = NULL;
+        if (head == NULL)
+            head = new_node;
+        else
+        {
+            new_node->skip = head;
+            head = new_node;
+        }
+    }
+    void push(string val) {
+        Stack* new_node = new Stack;
+        new_node->doctorname = val;
+        new_node->skip = NULL;
+
+        if (head == NULL) {
+            head = new_node;
+        }
+        else {
+            Stack* temp = head;
+            head = new_node;
+            new_node->skip = temp;
+        }
+
+    }
+    bool isEmptyd() {
+        if (head == NULL) {
+            return true;
+        }
+        else {
+            return false;
+        }
+
+    }
+    bool search(string val)
+    {
+        Stack* temp = head;
+        while (temp != NULL)
+        {
+            if (temp->doctorname == val)
+                return true;
+            temp = temp->skip;
+        }
+        return false;
+    }
+    void remove(string val)
+    {
+        if (head->doctorname == val)
+        {
+            delete head;
+            head = head->skip;
+            return;
+        }
+        if (head->skip == NULL)
+        {
+            if (head->doctorname == val)
+            {
+                delete head;
+                head = NULL;
+                return;
+            }
+            cout << "Value not found!" << endl;
+            return;
+        }
+        Stack* temp = head;
+        while (temp->skip != NULL)
+        {
+            if (temp->skip->doctorname == val)
+            {
+                Stack* temp_ptr = temp->skip->skip;
+                delete temp->skip;
+                temp->skip = temp_ptr;
+                return;
+            }
+            temp = temp->skip;
+        }
+        cout << "Value not found" << endl;
+    }
+    void pop() {
+        if (head == NULL)
+            cout << "No doctors remaining" << endl;
+        else {
+            cout << "Your doctor is: " << head->doctorname << endl;
+            head = head->skip;
+        }
+    }
+    void display()
+    {
+        Stack* temp = head;
+        while (temp != NULL)
+        {
+            cout << temp->doctorname << endl;
+            temp = temp->skip;
+        }
+        cout << endl;
+    }
+    void top() {
+        if (head == NULL)
+            cout << "Stack Underflow" << endl;
+        else {
+            cout << "The topped element is " << head->doctorname << endl;
+        }
+    }
+};
