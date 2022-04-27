@@ -1,56 +1,73 @@
 #include <iostream>
 #include<string>
+#include <stdio.h>
+#include <stdlib.h>
 using namespace std;
+const int PAINSCALE = 100;
 
-enum MENU { Insert = 1, Delete = 2, Display = 3, Doctor = 4,Exit = 5 };
-
+enum MENU { Insert = 1, Delete = 2, Display = 3, Doctorlist = 4, DoctorInsert = 5, EmergencyPatient = 6, Exit = 7 };
 int main() {
     int choice = 1;
-    bool keep;
     string name;
-    Stack* head = NULL;
-    SinglyIntegerLinkedList l;
-    DoublyIntegerLinkedList list;
-    list.enqueue("John");
-    list.enqueue("Mary");
-    list.enqueue("Joseph");
-    list.enqueue("Justin");
-    list.enqueue("Tanisha");
+    string doctorname;
+    patientQueue list;
+    doctorQueue l;
+    int painf[PAINSCALE];
+    int pain;
+    list.enqueue("John",1);
+    list.enqueue("Mary",5);
+    list.enqueue("Joseph",3);
+    list.enqueue("Justin",10);
+    list.enqueue("Tanisha",7);
     list.displayQueue();
-    l.push("Dr.Tate");
-    l.push("Dr.Lopez");
-    l.push("Dr.Miller");
-    l.push("Dr.Smith");
-    l.push("Dr.Johnson");
-    l.push("Dr.Washington");
-    l.push("Dr.Knight");
-    l.push("Dr.Smart");
-    l.push("Dr.Carrol");
-    l.push("Dr.Hayes");
-    l.push("Dr.Smith");
-        while (choice != 5) {
+    l.doctorenqueue("Dr.Tate");
+    l.doctorenqueue("Dr.Lopez");
+    l.doctorenqueue("Dr.Miller");
+    l.doctorenqueue("Dr.Smith");
+    l.doctorenqueue("Dr.Johnson");
+    l.doctorenqueue("Dr.Washington");
+    l.doctorenqueue("Dr.Knight");
+    l.doctorenqueue("Dr.Smart");
+    l.doctorenqueue("Dr.Carrol");
+    l.doctorenqueue("Dr.Hayes");
+    l.doctorenqueue("Dr.Smith");
+    l.doctordisplayQueue();
+        while (choice != 7) {
         cout << "What is your would you like to do? " << endl;
-        cout << "1.Add Patient 2.Delete Patient 3.Display Patient Order 4.Show Doctor list 5.Exit Program" << endl;
+        cout << "1.Add Patient 2.Remove Patient from list 3.Display Patient Order 4.Show Doctor list 5.Doctor Arrival(Add doctor list of available doctors) 7.Exit Program" << endl;
         cin >> choice;
         switch (choice) {
         case Insert:
-            cout << "What is patients name?" << endl;
+            cout << "What is the patients name?" << endl;
             cin >> name;
-            list.enqueue(name);
+            cout << "What is your pain on a scale of 1- 10? " << endl;
+            cin >> pain;
+            list.enqueue(name, pain);
+            cout << name << " has been added to the line." << endl;
             break;
         case Delete:
             list.front();
             list.dequeue();
-            l.pop();
+            l.doctorfront();
+            l.doctordequeue();
             break;
         case Display:
             list.displayQueue();
             break;
-        case Doctor:
-            l.display();
+        case Doctorlist:
+            l.doctordisplayQueue();
+            break;
+        case DoctorInsert:
+            cout << "What is the doctors name: " << endl;
+            cin >> doctorname;
+            l.doctorenqueue(doctorname);
+            break;
+        case EmergencyPatient:
+            cin >> name;
+
             break;
         default:
-            choice = 5;
+            choice = 7;
         }
     }
 }
