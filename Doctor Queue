@@ -1,0 +1,130 @@
+#include <iostream>
+#include<string>
+#include <stdio.h>
+#include <stdlib.h>
+using namespace std;
+
+struct doctornode
+{
+    string data;
+    doctornode* next;
+    doctornode* prev;
+};
+
+class doctorQueue : public Queue{
+public:
+    doctorQueue() // default constrctor 
+    {
+        counter = 0;
+        doctorhead = doctortail = NULL;
+    }
+    void doctorSize()
+    {
+        cout << "The current amount of Doctors available: " << counter << endl;
+    }
+    void doctorcreateNode(string value)
+    {
+        doctornode* x = new doctornode(); // the new node
+        x->data = value;
+        x->next = NULL;
+        x->prev = NULL;
+        if (doctorhead == NULL) // if the list is empty, then make head and tail points 
+           // to x
+        {
+            doctorhead = doctortail = x;
+        }
+        else // if the list has at least one node, then make the tail points to x
+        {
+            // (head) 1 <-> 2 (tail) <-> NULL
+            // add a new item 3
+            // (head) 1 <-> 2 <-> 3 (tail) <-> NULL
+            doctortail->next = x; // moves the pointer one step forward
+            x->prev = doctortail;
+            doctortail = x; // makes the tail points to x
+        }
+        counter++;
+    }
+    void doctordisplayQueue()
+    {
+        cout << "Here are the doctors in the list:" << endl;
+        doctornode* i = doctorhead;
+        while (i != NULL)
+        {
+            cout << i->data << endl;
+            i = i->next; // moves the counter one step ahead
+        }
+    }
+    void doctordeleteHead()
+    {
+        if (doctorhead != NULL)
+        {
+            doctornode* temp = doctorhead;
+            doctorhead = doctorhead->next;
+            temp = NULL;
+            counter--;
+        }
+        else
+        {
+            cout << "The list is empty";
+        }
+    }
+    void doctordeleteAtPosition(int index)
+    {
+        if (index == 1)
+        {
+            doctordeleteHead();
+        }
+        else
+        {
+            doctornode* target = doctorhead;
+            doctornode* previous = doctorhead;
+            for (int i = 1; i < index; i++)
+            {
+                previous = target;
+                target = target->next;
+            }
+            // (head) 1 <-> 2 <-> 3 (tail)
+            previous->next = target->next;
+            target->next->prev = previous;
+            target = NULL;
+            counter--;
+        }
+    }
+    void doctorenqueue(string value) {
+        doctornode* x = new doctornode();
+        x->data = value;
+        x->next = NULL;
+        x->prev = NULL;
+        if (doctorisEmpty()) {
+            doctorhead = doctortail = x;
+        }
+        else {
+            x->prev = doctortail;
+            doctortail->next = x;
+            doctortail = x;
+        }
+        counter++;
+    }
+    void doctordequeue() {
+        doctornode* x = doctorhead;
+        if (doctorisEmpty()) {
+            return;
+        }
+        doctorhead = doctorhead->next;
+        delete x;
+        counter--;
+    }
+    int  doctorgetSize() {
+        return counter;
+    }
+    bool doctorisEmpty() {
+        if (doctorhead == NULL) {
+            return true;
+        }
+        return false;
+    }
+    void doctorfront() {
+        doctornode* x = doctorhead;
+        cout << "The next doctor available is: " << x->data << endl;
+    }
+};
