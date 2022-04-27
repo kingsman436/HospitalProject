@@ -8,21 +8,27 @@ struct node
     node* prev;
 };
 
-class DoublyIntegerLinkedList
+class Queue
 {
-private:
+protected:
     node* head; // the head of the list
     node* tail; // the end of the list 
     int counter;
+    doctornode* doctorhead; // the head of the list
+    doctornode* doctortail; // the end of the list 
 public:
-    DoublyIntegerLinkedList() // default constrctor 
+    Queue() // default constrctor 
     {
         counter = 0;
         head = tail = NULL;
     }
+};
+
+class patientQueue : public Queue {
+   public:
     void Size()
     {
-        cout << "The current nodes in the list is: " << counter << endl;
+        cout << "The current amount of patients in the list is: " << counter << endl;
     }
     void createNode(string value)
     {
@@ -46,13 +52,13 @@ public:
         }
         counter++;
     }
-    void displayQueue()
-    {
-        cout << "Here are the items in the list:\n";
+    void displayQueue(){
+        cout << "Here are the patients in the list:" << endl;
         node* i = head;
         while (i != NULL)
         {
-            cout << i->data << endl;
+            cout << i->data << ",";
+            cout << i->pain << endl;
             i = i->next; // moves the counter one step ahead
         }
     }
@@ -72,7 +78,7 @@ public:
     }
     void deleteAtPosition(int index)
     {
-        if (index == 1) 
+        if (index == 1)
         {
             deleteHead();
         }
@@ -92,9 +98,10 @@ public:
             counter--;
         }
     }
-    void enqueue(string value) {
+    void enqueue(string value,int pains) {
         node* x = new node();
         x->data = value;
+        x->pain = pains;
         x->next = NULL;
         x->prev = NULL;
         if (isEmpty()) {
@@ -127,6 +134,6 @@ public:
     }
     void front() {
         node* x = head;
-        cout << "The patient to be served is: " << x->data << endl;
+        cout << "The next patient to be served is: " << x->data << endl;
     }
 };
