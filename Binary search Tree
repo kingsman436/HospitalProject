@@ -1,3 +1,10 @@
+struct bnode {
+    string medicine;
+    int medincekey;
+    bnode* left = NULL;
+    bnode* right = NULL;
+};
+
 class BST {
 private:
     bnode* root;
