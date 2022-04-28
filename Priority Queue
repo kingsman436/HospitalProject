@@ -170,4 +170,32 @@ class patientpriorityqueue : public Queue {
         }
         cout << endl;
     }
+    void sort pQueue(struct PriorityQueue* q)
+    {
+        
+        struct node* node = q->front;
+        priority_queue<int> p1;
+        while (node != NULL)
+        {
+            p1.push(p->pain)
+            node = node->next;
+        }
+        while(p1.isempty()!)
+        {
+            int key=p1.pop();
+            if(key==q->head->pain)
+            {
+                /*node* temp = front;
+                front = front->next;
+                temp = NULL;*/
+                node = node -> next 
+            }
+            else if(key==q->pain)
+            {
+                node* temp2 = node;
+            }
+            
+        }
+        
+    }
 };
