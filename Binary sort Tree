@@ -1,0 +1,53 @@
+class BST {
+private:
+    bnode* root;
+public:
+    BST(){
+        root = NULL;
+    };
+    BST(int key,string keyname) {
+        bnode* node = new bnode();
+        node->medincekey = key;
+        node->medicine = keyname;
+        root = node;
+    }
+    bnode* Insert(int key, string keyname, bnode* q) {
+        if(q==NULL){
+            bnode* node = new bnode();
+            node->medincekey = key;
+            node->medicine = keyname;
+            if (key > q->medincekey) {
+                q->right = node;
+            }
+            if (key <= q->medincekey) {
+                q->left = node;
+            } 
+            q = node;
+        }
+        if (q->medincekey < key) {
+            q->right = Insert(key, keyname, q->right);
+        }
+        if (q->medincekey >= key) {
+            q->left = Insert(key, keyname, q->left);
+        }
+        return q;
+    }
+    bnode* Search(int key, bnode* q) {
+        if (q->medincekey == key) {
+            cout << "The patient needs " << q->medicine << endl;
+            return q;
+        }
+        if (q->medincekey < key) {
+            return Search(key,q->right);
+        }
+        return Search(key, q->left);
+    }
+    void print(bnode* q) {
+        if (q != NULL) {
+            print(q->left);
+        }
+    }
+    bnode* getRoot() {
+        return root;
+    }
+};
